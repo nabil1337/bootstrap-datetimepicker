@@ -11,6 +11,6 @@ The main changes:
 * The bootstrap-dependency is now handled by bower (no more submodules).
 
 
-Forked from [http://tarruda.github.com/bootstrap-datetimepicker/](http://tarruda.github.com/bootstrap-datetimepicker/).
+Forked from [https://github.com/tarruda/bootstrap-datetimepicker](https://github.com/tarruda/bootstrap-datetimepicker).
 
 See documentation [here](http://tarruda.github.com/bootstrap-datetimepicker/).
