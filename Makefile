@@ -1,8 +1,9 @@
 deps:
-	git submodule init
-	git submodule update
+	rm -rf bootstrap
+	mkdir -p bootstrap	
+	git clone https://github.com/twbs/bootstrap ./bootstrap
 	npm install -d
-
+	
 build:
 	mkdir -p build/js
 	mkdir -p build/css

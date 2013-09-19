@@ -27,7 +27,7 @@
 (function($) {
 
   // Picker object
-  var smartPhone = (window.orientation != undefined);
+  var smartPhone = (typeof window.orientation !== 'undefined');
   var DateTimePicker = function(element, options) {
     this.id = dpgId++;
     this.init(element, options);
@@ -49,9 +49,10 @@
         throw new Error('Must choose at least one picker');
       this.options = options;
       this.$element = $(element);
-      this.language = options.language in dates ? options.language : 'en'
+      this.language = options.language in dates ? options.language : 'en';
       this.pickDate = options.pickDate;
       this.pickTime = options.pickTime;
+      this.hideOnInputClick = (options && options.hideOnInputClick) || false;
       this.isInput = this.$element.is('input');
       this.component = false;
       if (this.$element.find('.input-append') || this.$element.find('.input-prepend'))
@@ -145,9 +146,21 @@
           this._attachDatePickerEvents();
     },
 
-    hide: function() {
+    /**
+     * Hides the datepicker.
+     * 
+     * @param {Object} clickedElem The Element that was clicked.
+     * @returns {undefined}
+     */
+    hide: function(clickedElem) {
+        
+      // Don't hide if associated input was clicked (when no option is set)
+      if ($(clickedElem).is(this.$element) && this.hideOnInputClick === false) {
+        return;
+      }
+      
       // Ignore event if in the middle of a picker transition
-      var collapse = this.widget.find('.collapse')
+      var collapse = this.widget.find('.collapse');
       for (var i = 0; i < collapse.length; i++) {
         var collapseData = collapse.eq(i).data('collapse');
         if (collapseData && collapseData.transitioning)
@@ -261,18 +274,18 @@
 
     place: function(){
       var position = 'absolute';
-      var offset = this.component ? this.component.offset() : this.$element.offset();
+      var offset = this.$element.offset();
       this.width = this.component ? this.component.outerWidth() : this.$element.outerWidth();
-      offset.top = offset.top + this.height;
-
+      offset.top = offset.top + this.$element.outerHeight();
+      
       var $window = $(window);
       
-      if ( this.options.width != undefined ) {
-        this.widget.width( this.options.width );
+      if (typeof this.options.width !== 'undefined') {
+        this.widget.width(this.options.width);
       }
       
-      if ( this.options.orientation == 'left' ) {
-        this.widget.addClass( 'left-oriented' );
+      if (this.options.orientation == 'left') {
+        this.widget.addClass( 'left-oriented');
         offset.left   = offset.left - this.widget.width() + 20;
       }
       
@@ -952,7 +965,7 @@
         '^\\s*' + components.join('') + '\\s*$');
       this._propertiesByIndex = propertiesByIndex;
     },
-
+            
     _attachDatePickerEvents: function() {
       var self = this;
       // this handles date picker clicks
@@ -970,9 +983,14 @@
 
           if (expanded && expanded.length) {
             var collapseData = expanded.data('collapse');
-            if (collapseData && collapseData.transitioning) return;
+            if (collapseData && collapseData.transitioning) {
+              return;
+            }
             expanded.collapse('hide');
-            closed.collapse('show')
+            closed.collapse('show');
+            closed.one('shown.bs.collapse', function() {
+              $(this).addClass('collapse');
+            });
             $this.find('i').toggleClass(self.timeIcon + ' ' + self.dateIcon);
             self.$element.find('.add-on i').toggleClass(self.timeIcon + ' ' + self.dateIcon);
           }
@@ -1008,12 +1026,15 @@
     },
 
     _attachDatePickerGlobalEvents: function() {
+      var self = this;
+
       $(window).on(
         'resize.datetimepicker' + this.id, $.proxy(this.place, this));
-      if (!this.isInput) {
-        $(document).on(
-          'mousedown.datetimepicker' + this.id, $.proxy(this.hide, this));
-      }
+      //if (!this.isInput) {
+        $(document).on('mousedown.datetimepicker' + this.id, function(e) {
+          $.proxy(self.hide, self, e.target)();
+        });
+      //}
     },
 
     _detachDatePickerEvents: function() {
@@ -1054,9 +1075,9 @@
 
     _detachDatePickerGlobalEvents: function () {
       $(window).off('resize.datetimepicker' + this.id);
-      if (!this.isInput) {
+      //if (!this.isInput) {
         $(document).off('mousedown.datetimepicker' + this.id);
-      }
+      //}
     },
 
     _isInFixed: function() {
