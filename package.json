@@ -1,9 +1,9 @@
 {
   "name": "bootstrap-datetimepicker",
-  "version": "0.0.10",
+  "version": "0.1.1",
   "repository": {
     "type": "git",
-    "url": "git://github.com/tarruda/bootstrap-datetimepicker.git"
+    "url": "git://github.com/nabil1337/bootstrap-datetimepicker.git"
   },
   "keywords": [
     "twitter-bootstrap",
