@@ -1,7 +1,9 @@
 /node_modules
 /bootstrap
+/jquery
 *.log
 /test/test.js
 /test/jquery.js
 /test/bootstrap.js
 /test/bootstrap.css
+.directory

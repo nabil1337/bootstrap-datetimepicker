@@ -1,7 +1,5 @@
 deps:
-	rm -rf bootstrap
-	mkdir -p bootstrap	
-	git clone https://github.com/twbs/bootstrap ./bootstrap
+	bower install
 	npm install -d
 	
 build:
