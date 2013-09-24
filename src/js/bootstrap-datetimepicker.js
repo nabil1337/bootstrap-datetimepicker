@@ -70,12 +70,12 @@
       }
       if (this.pickTime) {
         if (icon && icon.length) this.timeIcon = icon.data('time-icon');
-        if (!this.timeIcon) this.timeIcon = 'icon-time';
+        if (!this.timeIcon) this.timeIcon = 'glyphicon glyphicon-time';
         icon.addClass(this.timeIcon);
       }
       if (this.pickDate) {
         if (icon && icon.length) this.dateIcon = icon.data('date-icon');
-        if (!this.dateIcon) this.dateIcon = 'icon-calendar';
+        if (!this.dateIcon) this.dateIcon = 'glyphicon glyphicon-calendar';
         icon.removeClass(this.timeIcon);
         icon.addClass(this.dateIcon);
       }
@@ -149,17 +149,17 @@
 
     /**
      * Hides the datepicker.
-     * 
+     *
      * @param {Object} clickedElem The Element that was clicked.
      * @returns {undefined}
      */
     hide: function(clickedElem) {
-        
+
       // Don't hide if associated input was clicked (when no option is set)
       if ($(clickedElem).is(this.$element) && this.hideOnInputClick === false) {
         return;
       }
-      
+
       // Ignore event if in the middle of a picker transition
       var collapse = this.widget.find('.collapse');
       for (var i = 0; i < collapse.length; i++) {
@@ -278,18 +278,18 @@
       var offset = this.$element.offset();
       this.width = this.component ? this.component.outerWidth() : this.$element.outerWidth();
       offset.top = offset.top + this.$element.outerHeight();
-      
+
       var $window = $(window);
-      
+
       if (typeof this.options.width !== 'undefined') {
         this.widget.width(this.options.width);
       }
-      
+
       if (this.options.orientation == 'left') {
         this.widget.addClass( 'left-oriented');
         offset.left   = offset.left - this.widget.width() + 20;
       }
-      
+
       if (this._isInFixed()) {
         position = 'fixed';
         offset.top -= $window.scrollTop();
@@ -865,7 +865,7 @@
           else return 'AM';
 	} else if (property === 'UTCYear') {
           rv = d.getUTCFullYear();
-          rv = rv.toString().substr(2);   
+          rv = rv.toString().substr(2);
         } else {
           methodName = 'get' + property;
           rv = d[methodName]();
@@ -966,7 +966,7 @@
         '^\\s*' + components.join('') + '\\s*$');
       this._propertiesByIndex = propertiesByIndex;
     },
-            
+
     _attachDatePickerEvents: function() {
       var self = this;
       // this handles date picker clicks
@@ -1274,12 +1274,12 @@
         (is12Hours ? ' data-hour-format="12"' : '') +
         '>' +
         '<tr>' +
-          '<td><a href="#" class="btn" data-action="incrementHours"><i class="icon-chevron-up"></i></a></td>' +
+          '<td><a href="#" class="btn" data-action="incrementHours"><i class="glyphicon glyphicon-chevron-up"></i></a></td>' +
           '<td class="separator"></td>' +
-          '<td><a href="#" class="btn" data-action="incrementMinutes"><i class="icon-chevron-up"></i></a></td>' +
+          '<td><a href="#" class="btn" data-action="incrementMinutes"><i class="glyphicon glyphicon-chevron-up"></i></a></td>' +
           (showSeconds ?
           '<td class="separator"></td>' +
-          '<td><a href="#" class="btn" data-action="incrementSeconds"><i class="icon-chevron-up"></i></a></td>': '')+
+          '<td><a href="#" class="btn" data-action="incrementSeconds"><i class="glyphicon glyphicon-chevron-up"></i></a></td>': '')+
           (is12Hours ? '<td class="separator"></td>' : '') +
         '</tr>' +
         '<tr>' +
@@ -1296,12 +1296,12 @@
           '</td>' : '') +
         '</tr>' +
         '<tr>' +
-          '<td><a href="#" class="btn" data-action="decrementHours"><i class="icon-chevron-down"></i></a></td>' +
+          '<td><a href="#" class="btn" data-action="decrementHours"><i class="glyphicon glyphicon-chevron-down"></i></a></td>' +
           '<td class="separator"></td>' +
-          '<td><a href="#" class="btn" data-action="decrementMinutes"><i class="icon-chevron-down"></i></a></td>' +
+          '<td><a href="#" class="btn" data-action="decrementMinutes"><i class="glyphicon glyphicon-chevron-down"></i></a></td>' +
           (showSeconds ?
           '<td class="separator"></td>' +
-          '<td><a href="#" class="btn" data-action="decrementSeconds"><i class="icon-chevron-down"></i></a></td>': '') +
+          '<td><a href="#" class="btn" data-action="decrementSeconds"><i class="glyphicon glyphicon-chevron-down"></i></a></td>': '') +
           (is12Hours ? '<td class="separator"></td>' : '') +
         '</tr>' +
       '</table>' +
