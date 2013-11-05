@@ -190,6 +190,7 @@
         this.$element.data('date', formatted);
       } else {
         this.$element.val(formatted);
+        this.notifyChange();
         this._resetMaskPos(this.$element);
       }
     },
