@@ -94,21 +94,21 @@ describe 'datetimepicker', ->
     @addon.click()
     expect(@widget.find('.datepicker').closest('.collapse').height())
       .to.not.equal 0
-    expect(@widget.find('.timepicker').closest('.collapse').height())
-      .to.equal 0
+    expect(@widget.find('.timepicker').closest('.collapse').is ':hidden')
+      .to.be.true
     @widget.find('.picker-switch a').click()
-    @widget.one 'shown', =>
+    @widget.one 'shown.bs.collapse', =>
       expect(@widget.find('.datepicker').closest('.collapse').height())
         .to.equal 0
       expect(@widget.find('.timepicker').closest('.collapse').height())
         .to.not.equal 0
       @widget.find('.picker-switch a').click()
-      @widget.one 'shown', =>
+      @widget.one 'shown.bs.collapse', =>
         expect(@widget.find('.datepicker').closest('.collapse').height())
           .to.not.equal 0
         expect(@widget.find('.timepicker').closest('.collapse').height())
           .to.equal 0
-        expect(@timeWidget.find('.timepicker-picker').is ':visible')
+        expect(@timeWidget.find('.timepicker-picker').is ':hidden')
           .to.be.true
         expect(@timeWidget.find('.timepicker-hours').is ':hidden')
           .to.be.true
